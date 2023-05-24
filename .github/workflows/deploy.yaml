@@ -1,0 +1,33 @@
+name: Deploy to GoDaddy VPS
+
+on:
+  push:
+  branches:
+    - main
+
+jobs: 
+ deploy: 
+   runs-on: ubuntu-latest
+
+   steps:
+   - name: Checkout Repo
+      uses: actions/checkout@v3
+   - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: Install Dependencies
+      run: yarn --frozen-lockfile
+
+    - name: Build
+      run: yarn build
+
+    - name: Move files to VPS
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        source: "dist/*"
+        target: "/var/www/my-spa"
