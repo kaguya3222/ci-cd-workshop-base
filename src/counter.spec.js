@@ -11,7 +11,7 @@ describe('test', () => {
     setupCounter(document.querySelector('#counter'));
 
     document.querySelector('#counter').click();
-    expect(document.querySelector('#counter').innerHTML).toBe('count is 1');
+    expect(document.querySelector('#counter').innerHTML).toBe('count is 3');
     document.querySelector('#counter').click();
     expect(document.querySelector('#counter').innerHTML).toBe('count is 2');
   });
